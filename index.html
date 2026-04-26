@@ -1,0 +1,636 @@
+<!--
+PÁGINA 8 MESES — MISO + REX
+Diseñada para pegar en Carrd usando un elemento EMBED > Code.
+
+Cómo usar en Carrd:
+1. Crea una página en blanco.
+2. Agrega un elemento "Embed".
+3. Pega TODO este código.
+4. Cambia textos, links de canciones, fotos y ubicaciones donde dice EDITAR.
+
+Nota: estética voxel/pixel inspirada en videojuegos de bloques, no usa assets oficiales.
+-->
+
+<div id="miso-rex-site">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    #miso-rex-site {
+      --grass: #4CAF2F;
+      --grass-dark: #2E7D24;
+      --dirt: #8B5A2B;
+      --stone: #777;
+      --sky1: #7ecbff;
+      --sky2: #b8ecff;
+      --cream: #fff8df;
+      --heart: #ff4f81;
+      --dark: #1b1b1b;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+      min-height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(var(--sky1), var(--sky2) 55%, #5dbb42 55%, #3c8f2d 100%);
+      position: relative;
+    }
+
+    #miso-rex-site * { box-sizing: border-box; }
+
+    .pixel-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,.10) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,.10) 25%, transparent 25%);
+      background-size: 80px 80px;
+      opacity: .3;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 32px 18px 90px;
+      position: relative;
+      z-index: 2;
+      animation: pop .35s steps(3, end);
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes pop {
+      from { transform: scale(.98); opacity: .5; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .center {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(26px, 7vw, 64px);
+      line-height: 1.2;
+      color: #fff8bd;
+      text-shadow: 5px 5px 0 #3b2a19, 8px 8px 0 rgba(0,0,0,.35);
+      margin: 55px auto 18px;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      font-size: clamp(10px, 2.8vw, 16px);
+      color: white;
+      text-shadow: 3px 3px 0 #000;
+      line-height: 1.8;
+      max-width: 720px;
+      margin: 0 auto 26px;
+    }
+
+    .splash {
+      display: inline-block;
+      color: #ffe600;
+      text-shadow: 3px 3px 0 #5c4a00;
+      transform: rotate(-7deg);
+      font-size: clamp(10px, 2.5vw, 18px);
+      animation: splash 1s infinite alternate;
+      margin-bottom: 28px;
+    }
+
+    @keyframes splash {
+      from { transform: rotate(-7deg) scale(1); }
+      to { transform: rotate(-7deg) scale(1.08); }
+    }
+
+    .menu {
+      display: grid;
+      gap: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .pixel-btn {
+      cursor: pointer;
+      border: 4px solid #1a1a1a;
+      background: linear-gradient(#7bd957, #3fae2a);
+      color: white;
+      padding: 16px 18px;
+      font-family: inherit;
+      font-size: 11px;
+      line-height: 1.5;
+      text-shadow: 2px 2px 0 #000;
+      box-shadow: inset -4px -4px 0 rgba(0,0,0,.25), inset 4px 4px 0 rgba(255,255,255,.25), 0 8px 0 #1d5e18;
+      transition: transform .1s ease, box-shadow .1s ease;
+      width: 100%;
+    }
+
+    .pixel-btn:hover {
+      transform: translateY(3px);
+      box-shadow: inset -4px -4px 0 rgba(0,0,0,.25), inset 4px 4px 0 rgba(255,255,255,.25), 0 5px 0 #1d5e18;
+    }
+
+    .pixel-btn.secondary { background: linear-gradient(#b7b7b7, #777); box-shadow: inset -4px -4px 0 rgba(0,0,0,.25), inset 4px 4px 0 rgba(255,255,255,.25), 0 8px 0 #444; }
+    .pixel-btn.pink { background: linear-gradient(#ff8fb1, #ff4f81); box-shadow: inset -4px -4px 0 rgba(0,0,0,.25), inset 4px 4px 0 rgba(255,255,255,.25), 0 8px 0 #9e2148; }
+
+    .card {
+      max-width: 980px;
+      margin: 30px auto;
+      background: rgba(32, 24, 18, .88);
+      border: 5px solid #0e0e0e;
+      box-shadow: inset -6px -6px 0 rgba(0,0,0,.35), inset 6px 6px 0 rgba(255,255,255,.10), 0 18px 0 rgba(0,0,0,.25);
+      padding: 24px;
+    }
+
+    h2 {
+      color: #fff8bd;
+      font-size: clamp(16px, 4vw, 30px);
+      line-height: 1.4;
+      text-shadow: 3px 3px 0 #000;
+      margin: 0 0 18px;
+    }
+
+    p, li {
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #fff;
+    }
+
+    .small-pixel {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      line-height: 1.8;
+      color: #e5e5e5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .photo-slot, .pixel-art-slot, .song-card, .chat-card {
+      border: 4px solid #111;
+      background: #2d2d2d;
+      padding: 12px;
+      box-shadow: inset -4px -4px 0 rgba(0,0,0,.35), inset 4px 4px 0 rgba(255,255,255,.08);
+    }
+
+    .photo-slot img, .pixel-art-slot img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      image-rendering: auto;
+      border: 3px solid #111;
+      display: block;
+      background: #111;
+    }
+
+    .caption {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      margin-top: 10px;
+      color: #fff8bd;
+    }
+
+    .letter {
+      background: #f7e7bd;
+      color: #442a16;
+      border: 5px solid #25160b;
+      padding: 22px;
+      text-align: left;
+      box-shadow: inset -5px -5px 0 rgba(90,54,20,.25);
+    }
+
+    .letter p {
+      color: #442a16;
+      font-size: 18px;
+    }
+
+    .chat-card {
+      text-align: left;
+      font-family: Arial, sans-serif;
+      background: #101010;
+    }
+
+    .bubble {
+      padding: 12px 14px;
+      margin: 10px 0;
+      border-radius: 0;
+      border: 3px solid #000;
+      max-width: 85%;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .miso { background: #ffe4a3; color: #3b2814; margin-right: auto; }
+    .rex { background: #d5ffd1; color: #183d16; margin-left: auto; }
+
+    .world-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 20px;
+    }
+
+    .block-earth {
+      width: min(78vw, 360px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: relative;
+      border: 6px solid #111;
+      background:
+        linear-gradient(90deg, transparent 0 12%, rgba(255,255,255,.10) 12% 14%, transparent 14% 28%, rgba(0,0,0,.10) 28% 30%, transparent 30%),
+        repeating-linear-gradient(0deg, transparent 0 32px, rgba(255,255,255,.08) 32px 34px),
+        repeating-linear-gradient(90deg, transparent 0 32px, rgba(0,0,0,.10) 32px 34px),
+        radial-gradient(circle at 35% 30%, #49b5ff 0 38%, #1e7ee8 68%);
+      overflow: hidden;
+      cursor: grab;
+      transform-style: preserve-3d;
+      transition: transform .15s linear;
+      box-shadow: inset -35px -25px 0 rgba(0,0,0,.25), inset 24px 18px 0 rgba(255,255,255,.14), 0 18px 0 rgba(0,0,0,.25);
+    }
+
+    .land {
+      position: absolute;
+      background: #45b83f;
+      border: 4px solid rgba(0,0,0,.12);
+      box-shadow: inset -6px -6px 0 rgba(0,0,0,.16), inset 6px 6px 0 rgba(255,255,255,.12);
+    }
+
+    .land.one { width: 38%; height: 25%; left: 16%; top: 25%; clip-path: polygon(0 20%, 80% 0, 100% 40%, 72% 100%, 20% 80%); }
+    .land.two { width: 30%; height: 38%; right: 12%; top: 34%; clip-path: polygon(20% 0, 100% 18%, 80% 90%, 35% 100%, 0 55%); }
+    .land.three { width: 18%; height: 16%; left: 45%; top: 62%; clip-path: polygon(0 0, 100% 20%, 72% 100%, 12% 80%); }
+
+    .pin {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      font-size: 36px;
+      text-shadow: 3px 3px 0 #000;
+      animation: bounce 1s infinite alternate;
+      z-index: 4;
+    }
+
+    .pin.miso-pin { left: 42%; top: 48%; }
+    .pin.rex-pin { left: 60%; top: 42%; animation-delay: .25s; }
+
+    @keyframes bounce { from { margin-top: 0; } to { margin-top: -8px; } }
+
+    .heart-line {
+      position: absolute;
+      left: 42%; top: 43%;
+      width: 20%; height: 10%;
+      border-top: 5px dashed #ff4f81;
+      transform: rotate(-13deg);
+      z-index: 3;
+    }
+
+    .distance-box {
+      background: #111;
+      border: 4px solid #fff;
+      padding: 14px;
+      max-width: 620px;
+      margin: 0 auto;
+      color: #fff8bd;
+      line-height: 1.8;
+      font-size: 10px;
+    }
+
+    .dino-scene {
+      width: min(90vw, 520px);
+      margin: 22px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 10px;
+    }
+
+    .rex-dino, .miso-soup {
+      height: 180px;
+      position: relative;
+      image-rendering: pixelated;
+    }
+
+    .rex-dino::before {
+      content: '';
+      position: absolute;
+      width: 150px; height: 85px;
+      right: 15px; bottom: 42px;
+      background: #3fae2a;
+      box-shadow:
+        -35px 20px 0 #3fae2a,
+        85px 22px 0 #2e7d24,
+        -60px 78px 0 #2e7d24,
+        20px 88px 0 #2e7d24,
+        65px -40px 0 #3fae2a,
+        100px -28px 0 #3fae2a,
+        118px -12px 0 white,
+        132px -12px 0 #111;
+      border: 5px solid #111;
+    }
+
+    .miso-soup::before {
+      content: '';
+      position: absolute;
+      width: 120px; height: 70px;
+      left: 20px; bottom: 35px;
+      background: #ffe4a3;
+      border: 6px solid #111;
+      box-shadow:
+        inset -8px -8px 0 rgba(0,0,0,.18),
+        18px -28px 0 -8px #ffffff,
+        52px -40px 0 -10px #ffffff,
+        80px -24px 0 -9px #ffffff;
+      border-radius: 0 0 22px 22px;
+    }
+
+    .nav-bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      background: rgba(0,0,0,.70);
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-top: 4px solid #111;
+    }
+
+    .nav-bottom button {
+      min-width: max-content;
+      font-size: 8px;
+      padding: 10px;
+      box-shadow: none;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff4f81;
+      text-shadow: 2px 2px #000;
+      font-size: 26px;
+      animation: floatUp 6s linear infinite;
+      opacity: .85;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0; }
+      15% { opacity: 1; }
+      to { transform: translateY(-20vh); opacity: 0; }
+    }
+
+    @media (max-width: 620px) {
+      .card { padding: 16px; }
+      .screen { padding-left: 12px; padding-right: 12px; }
+      .pixel-btn { font-size: 9px; }
+      p, li { font-size: 15px; }
+      .dino-scene { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="pixel-bg"></div>
+  <div class="floating-heart" style="left:8%; animation-delay:0s;">❤</div>
+  <div class="floating-heart" style="left:28%; animation-delay:2s;">❤</div>
+  <div class="floating-heart" style="left:70%; animation-delay:1s;">❤</div>
+  <div class="floating-heart" style="left:88%; animation-delay:3.2s;">❤</div>
+
+  <!-- PORTADA -->
+  <section class="screen active" data-screen="home">
+    <div class="center">
+      <h1 class="title">MISO + REX</h1>
+      <div class="splash">¡8 meses desbloqueados!</div>
+      <p class="subtitle">
+        28 de abril de 2026<br>
+        Un pequeño mundo hecho de bloques, canciones, fotos, chats y amor.
+      </p>
+      <div class="menu">
+        <button class="pixel-btn pink" onclick="goToScreen('intro')">START GAME</button>
+        <button class="pixel-btn" onclick="goToScreen('songs')">Nuestras canciones</button>
+        <button class="pixel-btn" onclick="goToScreen('photos')">Fotos de Rex</button>
+        <button class="pixel-btn" onclick="goToScreen('letter')">Carta secreta</button>
+        <button class="pixel-btn secondary" onclick="goToScreen('world')">Nuestro mundo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="screen" data-screen="intro">
+    <div class="card center">
+      <h2>Bienvenida, Rex 🦖</h2>
+      <p>
+        Este mundo fue creado por Miso para Rex. Tiene canciones, recuerdos,
+        screenshots, fotos, mini aventuras y una sopa miso en peligro.
+      </p>
+      <div class="dino-scene" aria-label="Tiranosaurio rex estilo bloques comiendo sopa miso">
+        <div class="miso-soup"></div>
+        <div class="rex-dino"></div>
+      </div>
+      <p class="small-pixel">Objetivo: sobrevivir al amor más bonito del servidor.</p>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('songs')">Continuar</button>
+    </div>
+  </section>
+
+  <!-- CANCIONES -->
+  <section class="screen" data-screen="songs">
+    <div class="card center">
+      <h2>Playlist del mundo 🎵</h2>
+      <p class="small-pixel">EDITAR: cambia los links de Spotify/YouTube por sus canciones.</p>
+      <div class="grid">
+        <div class="song-card">
+          <p><strong>Canción 1</strong></p>
+          <p>La que me recuerda a vos.</p>
+          <a class="pixel-btn" href="https://open.spotify.com/" target="_blank">Escuchar</a>
+        </div>
+        <div class="song-card">
+          <p><strong>Canción 2</strong></p>
+          <p>La de nuestro mood.</p>
+          <a class="pixel-btn" href="https://youtube.com/" target="_blank">Escuchar</a>
+        </div>
+        <div class="song-card">
+          <p><strong>Canción 3</strong></p>
+          <p>La que pondría al final de esta aventura.</p>
+          <a class="pixel-btn" href="https://open.spotify.com/" target="_blank">Escuchar</a>
+        </div>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('photos')">Siguiente nivel</button>
+    </div>
+  </section>
+
+  <!-- FOTOS -->
+  <section class="screen" data-screen="photos">
+    <div class="card center">
+      <h2>Galería de Rex 📸</h2>
+      <p class="small-pixel">EDITAR: reemplaza cada URL de imagen por fotos de ella o de ustedes.</p>
+      <div class="grid">
+        <div class="photo-slot">
+          <img src="https://placehold.co/600x600/8bdc65/ffffff?text=Foto+1" alt="Foto 1">
+          <div class="caption">Mi foto favorita de vos.</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://placehold.co/600x600/ffd1dc/ffffff?text=Foto+2" alt="Foto 2">
+          <div class="caption">Rex siendo Rex.</div>
+        </div>
+        <div class="photo-slot">
+          <img src="https://placehold.co/600x600/79c7ff/ffffff?text=Foto+3" alt="Foto 3">
+          <div class="caption">Un recuerdo desbloqueado.</div>
+        </div>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('pixel')">Ver pixel art</button>
+    </div>
+  </section>
+
+  <!-- IMÁGENES ESTILO MINECRAFT/PIXEL -->
+  <section class="screen" data-screen="pixel">
+    <div class="card center">
+      <h2>Pixel recuerdos 🧱</h2>
+      <p class="small-pixel">Aquí puedes poner imágenes generadas estilo voxel/pixel de ustedes.</p>
+      <div class="grid">
+        <div class="pixel-art-slot">
+          <img src="https://placehold.co/600x600/5dbb42/ffffff?text=Miso+%2B+Rex" alt="Pixel art 1">
+          <div class="caption">Miso y Rex en modo aventura.</div>
+        </div>
+        <div class="pixel-art-slot">
+          <img src="https://placehold.co/600x600/8b5a2b/ffffff?text=Rex+%F0%9F%A6%96+%2B+Miso" alt="Pixel art 2">
+          <div class="caption">Un T-Rex cuidando su sopa miso.</div>
+        </div>
+        <div class="pixel-art-slot">
+          <img src="https://placehold.co/600x600/333333/ffffff?text=Nuestro+Servidor" alt="Pixel art 3">
+          <div class="caption">Nuestro pequeño servidor.</div>
+        </div>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('letter')">Abrir carta</button>
+    </div>
+  </section>
+
+  <!-- CARTA -->
+  <section class="screen" data-screen="letter">
+    <div class="card center">
+      <h2>Carta para Rex 💌</h2>
+      <div class="letter">
+        <p>Rex:</p>
+        <p>
+          Hoy cumplimos 8 meses y quería darte algo que se sintiera como nosotras:
+          raro, bonito, divertido, nuestro, lleno de detallitos y con un mundo entero adentro.
+        </p>
+        <p>
+          Gracias por existir en mi vida, por hacer que hasta los días normales se sientan
+          como una misión especial. Te amo muchísimo.
+        </p>
+        <p>— Miso</p>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('chats')">Ver chats</button>
+    </div>
+  </section>
+
+  <!-- CHATS -->
+  <section class="screen" data-screen="chats">
+    <div class="card center">
+      <h2>Mensajes guardados 💬</h2>
+      <p class="small-pixel">EDITAR: pega aquí capturas o recrea frases de chats importantes.</p>
+      <div class="grid">
+        <div class="chat-card">
+          <div class="bubble miso">Miso: Hoy te extraño nivel creeper explotando.</div>
+          <div class="bubble rex">Rex: JAJAJA vení pues.</div>
+        </div>
+        <div class="chat-card">
+          <div class="bubble rex">Rex: Te amo.</div>
+          <div class="bubble miso">Miso: Yo más, fin de la discusión.</div>
+        </div>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('world')">Ir a nuestro mundo</button>
+    </div>
+  </section>
+
+  <!-- MUNDO -->
+  <section class="screen" data-screen="world">
+    <div class="card center">
+      <h2>Nuestro mundo 🌎❤</h2>
+      <p class="small-pixel">Arrastra el planeta. EDITAR: cambia nombres, distancia y posición de pines.</p>
+      <div class="world-wrap">
+        <div class="block-earth" id="earth">
+          <div class="land one"></div>
+          <div class="land two"></div>
+          <div class="land three"></div>
+          <div class="heart-line"></div>
+          <div class="pin miso-pin" title="Miso">📍</div>
+          <div class="pin rex-pin" title="Rex">💗</div>
+        </div>
+        <div class="distance-box">
+          Miso 📍 — Rex 💗<br>
+          Distancia: EDITAR km<br>
+          Pero en este mundo: 0 bloques de separación ❤
+        </div>
+      </div>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('final')">Final</button>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="screen" data-screen="final">
+    <div class="card center">
+      <h2>Achievement unlocked 🏆</h2>
+      <p>
+        8 meses con mi persona favorita.
+      </p>
+      <p class="small-pixel">Nueva misión: seguir construyendo este mundo juntas.</p>
+      <br>
+      <button class="pixel-btn pink" onclick="goToScreen('home')">Volver al inicio</button>
+    </div>
+  </section>
+
+  <div class="nav-bottom">
+    <button class="pixel-btn" onclick="goToScreen('home')">Inicio</button>
+    <button class="pixel-btn" onclick="goToScreen('songs')">Canciones</button>
+    <button class="pixel-btn" onclick="goToScreen('photos')">Fotos</button>
+    <button class="pixel-btn" onclick="goToScreen('letter')">Carta</button>
+    <button class="pixel-btn" onclick="goToScreen('chats')">Chats</button>
+    <button class="pixel-btn" onclick="goToScreen('world')">Mundo</button>
+  </div>
+
+  <script>
+    function goToScreen(name) {
+      document.querySelectorAll('#miso-rex-site .screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      const target = document.querySelector('#miso-rex-site [data-screen="' + name + '"]');
+      if (target) target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const earth = document.getElementById('earth');
+    let dragging = false;
+    let startX = 0;
+    let rotation = 0;
+
+    if (earth) {
+      earth.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        startX = e.clientX;
+        earth.setPointerCapture(e.pointerId);
+        earth.style.cursor = 'grabbing';
+      });
+
+      earth.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        earth.style.transform = `rotate(${rotation + dx / 3}deg)`;
+      });
+
+      earth.addEventListener('pointerup', (e) => {
+        dragging = false;
+        const current = earth.style.transform.match(/rotate\((-?\d+(?:\.\d+)?)deg\)/);
+        rotation = current ? parseFloat(current[1]) : rotation;
+        earth.style.cursor = 'grab';
+      });
+    }
+  </script>
+</div>
